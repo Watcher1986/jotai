@@ -1,40 +1,23 @@
-import { useEffect, useRef } from 'react';
 import { atom, useAtom } from 'jotai';
 
-type Point = [number, number];
-
-const dotsAtom = atom<Point[]>([]);
+import { Point } from '../../types/points';
+import { SvgShapes } from './SvgShapes';
+import { addDotAtom, commitDotsAtom, SvgDots } from './SvgDots';
 
 const drawingAtom = atom(false);
 
 const handleMouseDownAtom = atom(null, (get, set) => set(drawingAtom, true));
 
-const handleMouseUpAtom = atom(null, (get, set) => set(drawingAtom, false));
+const handleMouseUpAtom = atom(null, (get, set) => {
+  set(drawingAtom, false);
+  set(commitDotsAtom);
+});
 
 const handleMouseMoveAtom = atom(null, (get, set, update: Point) => {
   if (get(drawingAtom)) {
-    set(dotsAtom, (prev) => [...prev, update]);
+    set(addDotAtom, update);
   }
 });
-
-const SvgDots = () => {
-  const [dots] = useAtom(dotsAtom);
-  return (
-    <g>
-      {dots.map(([x, y], idx) => (
-        <circle key={idx} cx={x} cy={y} r='2' fill='#aaa' />
-      ))}
-    </g>
-  );
-};
-
-const useCommitCount = () => {
-  const commitCountRef = useRef(0);
-  useEffect(() => {
-    commitCountRef.current += 1;
-  });
-  return commitCountRef.current;
-};
 
 const SvgRoot = () => {
   const [, handleMouseMove] = useAtom(handleMouseMoveAtom);
@@ -53,18 +36,10 @@ const SvgRoot = () => {
       }}
     >
       <rect width='200' height='200' fill='#eee' />
-      <text x='3' y='12' font-size='12px'>
-        Commits: {useCommitCount()}
-      </text>
+      <SvgShapes />
       <SvgDots />
     </svg>
   );
 };
 
-const App = () => (
-  <>
-    <SvgRoot />
-  </>
-);
-
-export default App;
+export default SvgRoot;
