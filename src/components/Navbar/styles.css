@@ -1,0 +1,7 @@
+nav {
+  display: flex;
+  gap: 8px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}

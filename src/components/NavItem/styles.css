@@ -1,0 +1,26 @@
+.navLink {
+  display: inline-block;
+  padding: 12px;
+  font-weight: 600;
+  color: rgb(126, 122, 122);
+  font-size: 18px;
+  text-decoration: none;
+  transition: all 250ms linear;
+}
+
+.navLink:hover,
+.navLink:focus-within {
+  transform: scale(0.99);
+  color: #0b21b090;
+}
+
+.active {
+  color: #5269ff;
+}
+
+@media screen and (max-width: 767px) {
+  .navLink {
+    font-size: 14px;
+    padding: 30px 10px;
+  }
+}
