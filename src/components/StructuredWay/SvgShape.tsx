@@ -35,7 +35,12 @@ export const SvgShape = ({ shapeAtom }: { shapeAtom: ShapeAtom }) => {
         stroke='red'
         strokeWidth='12'
       />
-      <path d={shape.path} fill='none' stroke='black' strokeWidth='3' />
+      <path
+        d={shape.path}
+        fill='none'
+        stroke={shape.color || 'black'}
+        strokeWidth='3'
+      />
     </g>
   );
 };

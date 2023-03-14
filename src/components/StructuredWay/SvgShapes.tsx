@@ -2,9 +2,11 @@ import { atom, useAtom } from 'jotai';
 
 import { Point, ShapeAtom } from '../../types/points';
 import { createShapeAtom, SvgShape } from './SvgShape';
-import { selecteAtom } from './selection';
+import { selecteAtom, selectedAtom, unselectAtom } from './selection';
 
-const shapeAtomsAtom = atom<ShapeAtom[]>([]);
+import { shapeAtomsAtom } from './history';
+
+// const shapeAtomsAtom = atom<ShapeAtom[]>([]);
 
 export const addShapeAtom = atom(
   null,
@@ -12,6 +14,20 @@ export const addShapeAtom = atom(
     const shapeAtom = createShapeAtom(update);
     set(shapeAtomsAtom, (prev) => [...prev, shapeAtom]);
     set(selecteAtom, shapeAtom);
+  }
+);
+
+export const deleteSelectedShapeAtom = atom(
+  (get) => {
+    const isSelected = !!get(selectedAtom);
+    return isSelected;
+  },
+  (get, set, _update) => {
+    const selected = get(selectedAtom);
+    if (selected) {
+      set(shapeAtomsAtom, (prev) => prev.filter((item) => item !== selected));
+      set(unselectAtom, null);
+    }
   }
 );
 

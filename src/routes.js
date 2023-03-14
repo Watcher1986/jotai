@@ -1,5 +1,5 @@
 import SVGDots from './components/SVGDots';
-import SvgRoot from './components/StructuredWay';
+import SvgDrawingPanel from './components/StructuredWay';
 
 export const appRoutes = [
   {
@@ -13,7 +13,7 @@ export const appRoutes = [
     type: 'route',
     path: 'jotai/structured-components',
     name: 'State',
-    component: <SvgRoot />,
+    component: <SvgDrawingPanel />,
     key: 'state',
   },
   {
