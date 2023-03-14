@@ -17,8 +17,6 @@ const handleMouseMoveAtom = atom(null, (get, set, update: Point) => {
   }
 });
 
-const numberOfDotsAtom = atom((get) => get(dotsAtom).length);
-
 const SvgDots = () => {
   const [dots] = useAtom(dotsAtom);
   return (

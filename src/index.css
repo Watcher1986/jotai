@@ -3,6 +3,7 @@
 /* Base reset styles */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 h1,
@@ -15,7 +16,11 @@ p {
   margin: 0;
 }
 
-body,
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 ul,
 ol {
   margin: 0;
